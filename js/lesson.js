@@ -15,3 +15,50 @@ phoneButton.onclick = () => {
     phoneResult.style.color = "red";
   }
 };
+
+// TAB SLIDER
+
+const tabContentBlocks = document.querySelectorAll(".tab_content_block");
+const tabsParentBlock = document.querySelector(".tab_content_items");
+const tabsBlocks = document.querySelectorAll(".tab_content_item");
+
+const hideTabContent = () => {
+  tabContentBlocks.forEach((tabContentBlock) => {
+    tabContentBlock.style.display = "none";
+  });
+  tabsBlocks.forEach((tabBlock) => {
+    tabBlock.classList.remove("tab_content_item_active");
+  });
+};
+hideTabContent();
+
+const showTabContent = (indexElement = 0) => {
+  tabContentBlocks[indexElement].style.display = "block";
+  tabsBlocks[indexElement].classList.add("tab_content_item_active");
+};
+showTabContent();
+
+let currentIndex = 0;
+const autoSlide = () => {
+  hideTabContent();
+  showTabContent(currentIndex);
+  currentIndex++;
+  if (currentIndex >= tabsBlocks.length) {
+    currentIndex = 0;
+  }
+  setTimeout(autoSlide, 3000);
+};
+
+tabsParentBlock.onclick = (event) => {
+  if (event.target.classList.contains("tab_content_item")) {
+    tabsBlocks.forEach((tabBlock, tabIndex) => {
+      if (event.target === tabBlock) {
+        hideTabContent();
+        showTabContent(tabIndex);
+        currentIndex = tabIndex;
+      }
+    });
+  }
+};
+
+autoSlide();
