@@ -62,3 +62,35 @@ tabsParentBlock.onclick = (event) => {
 };
 
 autoSlide();
+
+//CONVERTER
+const som = document.querySelector("#som");
+const usd = document.querySelector("#usd");
+const eur = document.querySelector("#eur");
+
+const converter = (element, target1, target2, currency) => {
+  element.oninput = () => {
+    const request = new XMLHttpRequest();
+    request.open("GET", "../data/converter.json");
+    request.setRequestHeader("Content-type", "application/json");
+    request.send();
+
+    request.onload = () => {
+      const response = JSON.parse(request.response);
+      if (currency === "som") {
+        target1.value = (element.value / response.usd).toFixed(2);
+        target2.value = (element.value / response.eur).toFixed(2);
+      } else if (currency === "usd") {
+        target1.value = (element.value * response.usd).toFixed(2);
+        target2.value = "";
+      } else if (currency === "eur") {
+        target1.value = (element.value * response.eur).toFixed(2);
+        target2.value = "";
+      }
+      element.value === "" && (target1.value = target2.value = "");
+    };
+  };
+};
+converter(som, usd, eur, "som");
+converter(usd, som, eur, "usd");
+converter(eur, som, usd, "eur");
