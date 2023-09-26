@@ -21,14 +21,6 @@ modal.onclick = (event) => {
   }
 };
 
-setTimeout(() => {
-  openModal();
-}, 10000);
-
-// function handleScroll() {
-//   if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-//     openModal();
-//     window.removeEventListener("scroll", handleScroll);
-//   }
-// }
-// window.addEventListener("scroll", handleScroll);
+// setTimeout(() => {
+//   openModal();
+// }, 10000);
